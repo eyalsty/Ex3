@@ -2,17 +2,54 @@
 @{
     Layout = null;
 }
-"DisplayOnce Action !"
-
 <!DOCTYPE html>
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>DisplayOnce</title>
+    <meta name="viewport" content="width=device-width" />  
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .bg {
+
+            /* the path for the image.*/
+            background-image: url("../../fonts/map.png");
+
+            height: 100%;
+
+            /* for the image be at the correct position. */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 </head>
 <body>
-    "DisplayOnce Action !!"
-    <img src="~/fonts/map.png" alt="Sample Photo" />
+    <div class="bg">
+        <canvas id="myCanvas"></canvas>
+        <script>
+
+            /**
+             * a code for diplaying the dot of Lon
+             * and  Lat on the map.
+             * NOT COMPLETE AT ALL !!!
+             * */
+
+            alert('@ViewBag.Lon');
+            alert('@ViewBag.Lat');
+
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+
+            // dont draw the circle right because of the window size values !
+            ctx.beginPath();
+            ctx.arc(lon, lat, 20, 0, 2 * Math.PI);
+            ctx.stroke();
+
+        </script>
+    </div>
 </body>
 </html>

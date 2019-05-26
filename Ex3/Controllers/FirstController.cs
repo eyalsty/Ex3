@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ex3.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,12 @@ namespace Ex3.Controllers
         [HttpGet]
         public ActionResult DisplayOnce(string ip, int port)
         {
+            Client client = new Client();
+            client.Connect(ip, port);
+
+            // saving the Lon & Lat values for the View.
+            ViewBag.Lon = client.Get("/position/longitude-deg");
+            ViewBag.Lat = client.Get("/position/latitude-deg");
 
             return View();
         }
@@ -24,7 +31,6 @@ namespace Ex3.Controllers
         [HttpGet]
         public ActionResult AutoDisplay(string ip, int port)
         {
-
             return View();
         }
 

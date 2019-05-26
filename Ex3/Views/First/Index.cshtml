@@ -12,9 +12,17 @@
     <p>First paragraph</p>
     <p>Second paragraph</p>
     <p>Third paragraph</p>
+
+    <canvas id="myCanvas" width="500" height="100" style="border:1px solid black;"></canvas>
+
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script>
         $("p").html("Hello from jQuery").css("color", "blue");
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
+        ctx.strokeStyle = "red";
+
     </script>
 </body>
 </html>
