@@ -44,6 +44,9 @@
             var canvas = document.getElementById("myCanvas");
             var ctx = canvas.getContext("2d");
 
+            var width = window.innerWidth;
+            var height = window.innerHeight
+
             // dont draw the circle right because of the window size values !
             ctx.beginPath();
             ctx.arc(lon, lat, 20, 0, 2 * Math.PI);

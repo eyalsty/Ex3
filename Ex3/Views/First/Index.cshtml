@@ -6,23 +6,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>jQuery Example</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .bg {
+            /* the path for the image.*/
+            background-image: url("../../fonts/map.png");
+            height: 100%;
+            /* for the image be at the correct position. */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 </head>
 <body>
-    <p>First paragraph</p>
-    <p>Second paragraph</p>
-    <p>Third paragraph</p>
+    <div class=bg>
+        <canvas id="myCanvas"></canvas>
+        <script>
 
-    <canvas id="myCanvas" width="500" height="100" style="border:1px solid black;"></canvas>
+            var canvas = document.getElementById("myCanvas");
+            canvas.width = window.innerWidth;   //sets the canvas on whole page
+            canvas.height = window.innerHeight; 
+            var ctx = canvas.getContext('2d');
 
-    <script src="~/Scripts/jquery-1.10.2.js"></script>
-    <script>
-        $("p").html("Hello from jQuery").css("color", "blue");
-        var canvas = document.getElementById("myCanvas");
-        var ctx = canvas.getContext("2d");
+            lat = 50;
+            lon = -100;
 
-        ctx.strokeStyle = "red";
+            x = (lat + 90) * (window.innerHeight / 180);
+            y = (lon + 180) * (window.innerWidth / 360);
 
-    </script>
+            ctx.fillstyle = "red"; //WHY NO WORK ?!?! WHYYYYY
+
+            ctx.beginPath();
+            ctx.arc(x, y, 10, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+
+        </script>
+    </div>
 </body>
 </html>
