@@ -6,22 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-        }
-
-        .bg {
-            /* the path for the image.*/
-            background-image: url("../../fonts/map.png");
-            height: 100%;
-            /* for the image be at the correct position. */
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-    </style>
+    <link href="~/fonts/MyStyle.css" rel="stylesheet" />
 </head>
 <body>
     <div class=bg>
@@ -33,16 +18,16 @@
             canvas.height = window.innerHeight; 
             var ctx = canvas.getContext('2d');
 
-            lat = 50;
-            lon = -100;
+            var lat = parseInt('@ViewBag.Lat');
+            var lon = parseInt('@ViewBag.Lon');
 
-            x = (lat + 90) * (window.innerHeight / 180);
-            y = (lon + 180) * (window.innerWidth / 360);
+            y = (lat + 90) * (window.innerHeight / 180);
+            x = (lon + 180) * (window.innerWidth / 360);
 
-            ctx.fillstyle = "red"; //WHY NO WORK ?!?! WHYYYYY
+            ctx.fillStyle = "red";
 
             ctx.beginPath();
-            ctx.arc(x, y, 10, 0, 2 * Math.PI);
+            ctx.arc(x, y, 5, 0, 2 * Math.PI);
             ctx.fill();
             ctx.stroke();
 

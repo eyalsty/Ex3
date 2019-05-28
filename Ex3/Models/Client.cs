@@ -6,10 +6,11 @@ using System.Net.Sockets;
 using System.Text;
 using System.Web;
 
-namespace Ex3.Utils
+namespace Ex3.Models
 {
     public class Client
     {
+
         private TcpClient tcpClient;
 
         public Client()

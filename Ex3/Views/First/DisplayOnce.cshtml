@@ -7,49 +7,33 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />  
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-        }
-
-        .bg {
-
-            /* the path for the image.*/
-            background-image: url("../../fonts/map.png");
-
-            height: 100%;
-
-            /* for the image be at the correct position. */
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-    </style>
+    <link href="~/fonts/MyStyle.css" rel="stylesheet" />
 </head>
 <body>
     <div class="bg">
         <canvas id="myCanvas"></canvas>
         <script>
-
+           
             /**
              * a code for diplaying the dot of Lon
-             * and  Lat on the map.
-             * NOT COMPLETE AT ALL !!!
-             * */
-
-            alert('@ViewBag.Lon');
-            alert('@ViewBag.Lat');
+             * and  Lat on the map.*/
 
             var canvas = document.getElementById("myCanvas");
+            canvas.width = window.innerWidth;   //sets the canvas on whole page
+            canvas.height = window.innerHeight; 
             var ctx = canvas.getContext("2d");
 
-            var width = window.innerWidth;
-            var height = window.innerHeight
+            var lat = parseInt('@ViewBag.Lat');
+            var lon = parseInt('@ViewBag.Lon');
 
-            // dont draw the circle right because of the window size values !
+            y = (lat + 90) * (window.innerHeight / 180);
+            x = (lon + 180) * (window.innerWidth / 360);
+
+            ctx.fillStyle = "red"; //set the circe color to red
+           
             ctx.beginPath();
-            ctx.arc(lon, lat, 20, 0, 2 * Math.PI);
+            ctx.arc(x, y, 5, 0, 2 * Math.PI);
+            ctx.fill();
             ctx.stroke();
 
         </script>

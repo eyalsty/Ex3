@@ -9,9 +9,52 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>AutoDisplay</title>
+    <link href="~/fonts/MyStyle.css" rel="stylesheet" />
 </head>
 <body>
-    <div>
+    <div class="bg">
+        <canvas id="myCanvas"></canvas>
+        <script>
+            var IntervalTime = 60 / (@Session["time"]) * 1000;
+            alert(IntervalTime);
+
+            var canvas = document.getElementById("myCanvas");
+            canvas.width = window.innerWidth;   //sets the canvas on whole page
+            canvas.height = window.innerHeight;
+            var ctx = canvas.getContext("2d");
+
+            var lat = parseInt('@ViewBag.Lat');
+            var lon = parseInt('@ViewBag.Lon');
+
+            y = (lat + 90) * (window.innerHeight / 180);
+            x = (lon + 180) * (window.innerWidth / 360);
+
+            ctx.fillStyle = "red"; //set the circe color to red
+            alert(x);
+            alert(y);
+
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+
+
+            myTimer = function () {
+                $.post("@Url.Action("GetLat")").done(function (newLat) {
+                    lat = newLat;
+                });
+                $.post("@Url.Action("GetLon")").done(function (newLon) {
+                    lon = newLon;
+                });
+                y = ((lat + 90) * (window.innerHeight / 180)) *1.1;
+                x = ((lon + 180) * (window.innerWidth / 360)) *1.1;
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            }
+           
+            setInterval(TimerHandler, IntervalTime);
+        </script>
+
     </div>
 </body>
 </html>
