@@ -8,6 +8,13 @@ namespace Ex3.Models
 {
     public class Coordinate
     {
+        public Coordinate() { }
+        public Coordinate(double lon, double lat)
+        {
+            this.Lon = lon;
+            this.Lat = lat;
+        }
+
         public double Lon { get; set; }
         public double Lat { get; set; }
 

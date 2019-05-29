@@ -51,12 +51,7 @@ namespace Ex3.Models
 
         public bool IsConnected()
         {
-            if(tcpClient == null)
-            {
-                return false;
-            }
-
-            return true;
+            return tcpClient == null ? false : true;
         }
     }
 }
