@@ -10,10 +10,12 @@
     <div class="bg">
         <canvas id="myCanvas"></canvas>
         <script>
-            var IntervalTime = 60 / (@Session["rate"]) * 1000;
-            
+
+            var IntervalTime = @Session["rate"] * 1000;
+
+            // sets the canvas on whole page
             var canvas = document.getElementById("myCanvas");
-            canvas.width = window.innerWidth;   //sets the canvas on whole page
+            canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             var ctx = canvas.getContext("2d");
 
@@ -23,12 +25,17 @@
             y = (lat + 90) * (window.innerHeight / 180);
             x = (lon + 180) * (window.innerWidth / 360);
 
-            ctx.fillStyle = "red"; //set the circle color to red
+            //sets circle color.
+            ctx.fillStyle = "red";
             
             ctx.beginPath();
             ctx.arc(x, y, 5, 0, 2 * Math.PI);
             ctx.fill();
             ctx.stroke();
+
+            // sets line color and width.
+            ctx.strokeStyle = "red";
+            ctx.lineWidth = 3;
 
             myTimer = (function () {
                 
@@ -38,17 +45,11 @@
                     var lon = $xml.find("Lon").text();
                     var lat = $xml.find("Lat").text();
 
-                    var x = (window.innerWidth / 360) * (parseInt(lon) + 180) * 1.1;
-                    var y = (window.innerHeight / 180) * (parseInt(lat) + 90) * 1.1;
-
-                    alert(lon); // only for check !
-                    alert(lat); // only for check !
-                    alert(x);   // only for check !
-                    alert(y);   // only for check !
+                    var x = (window.innerWidth / 360) * (parseInt(lon) + 180);
+                    var y = (window.innerHeight / 180) * (parseInt(lat) + 90);
 
                     ctx.lineTo(x, y);
                     ctx.stroke();
-
                 });
             });
 

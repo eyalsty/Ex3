@@ -22,9 +22,6 @@ namespace Ex3.Models
         }
 
         public Client client { get; private set; }
-        public string ip { get; set; }
-        public string port { get; set; }
-        public int time { get; set; }
 
         public InfoModel()
         {

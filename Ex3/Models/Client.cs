@@ -11,15 +11,12 @@ namespace Ex3.Models
     public class Client
     {
 
-        private TcpClient tcpClient;
-
-        public Client()
-        {
-            tcpClient = new TcpClient();
-        }
+        private TcpClient tcpClient = null;
 
         public void Connect(string ip, int port)
         {
+            tcpClient = new TcpClient();
+
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
             tcpClient.Connect(endPoint);
         }
@@ -50,6 +47,16 @@ namespace Ex3.Models
         public void Dissconnect()
         {
             tcpClient.Close();
+        }
+
+        public bool IsConnected()
+        {
+            if(tcpClient == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

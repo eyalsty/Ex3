@@ -18,11 +18,16 @@ namespace Ex3.Controllers
             ViewBag.Lat = 50;
             return View();
         }
-        //ADD CHECK
+        
         [HttpGet]
         public ActionResult DisplayOnce(string ip, int port)
         {
-            Client client = new Client();
+            Client client = InfoModel.Instance.client;
+            if(client.IsConnected())
+            {
+                client.Dissconnect();
+            }
+
             client.Connect(ip, port);
 
             // saving the Lon & Lat values for the View.
@@ -37,6 +42,11 @@ namespace Ex3.Controllers
         public ActionResult AutoDisplay(string ip, int port, int rate)
         {
             Client client = InfoModel.Instance.client;
+            if(client.IsConnected())
+            {
+                client.Dissconnect();
+            }
+
             client.Connect(ip, port);
 
             ViewBag.Lon = client.Get("/position/longitude-deg");
