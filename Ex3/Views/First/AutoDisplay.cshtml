@@ -1,23 +1,17 @@
 ﻿
 @{
-    Layout = null;
+    ViewBag.Title = "AutoDisplay";
 }
 
 <!DOCTYPE html>
 
 <html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>AutoDisplay</title>
-    <link href="~/fonts/MyStyle.css" rel="stylesheet" />
-</head>
 <body>
     <div class="bg">
         <canvas id="myCanvas"></canvas>
         <script>
-            var IntervalTime = 60 / (@Session["time"]) * 1000;
-            alert(IntervalTime);
-
+            var IntervalTime = 60 / (@Session["rate"]) * 1000;
+            
             var canvas = document.getElementById("myCanvas");
             canvas.width = window.innerWidth;   //sets the canvas on whole page
             canvas.height = window.innerHeight;
@@ -25,34 +19,41 @@
 
             var lat = parseInt('@ViewBag.Lat');
             var lon = parseInt('@ViewBag.Lon');
-
+            
             y = (lat + 90) * (window.innerHeight / 180);
             x = (lon + 180) * (window.innerWidth / 360);
 
-            ctx.fillStyle = "red"; //set the circe color to red
-            alert(x);
-            alert(y);
-
+            ctx.fillStyle = "red"; //set the circle color to red
+            
             ctx.beginPath();
             ctx.arc(x, y, 5, 0, 2 * Math.PI);
             ctx.fill();
             ctx.stroke();
 
+            myTimer = (function () {
+                
+                $.post("@Url.Action("GetCoordinate")").done(function (xml) {
 
-            myTimer = function () {
-                $.post("@Url.Action("GetLat")").done(function (newLat) {
-                    lat = newLat;
+                    var xmlDoc = $.parseXML(xml), $xml = $(xmlDoc);
+                    var lon = $xml.find("Lon").text();
+                    var lat = $xml.find("Lat").text();
+
+                    var x = (window.innerWidth / 360) * (parseInt(lon) + 180) * 1.1;
+                    var y = (window.innerHeight / 180) * (parseInt(lat) + 90) * 1.1;
+
+                    alert(lon); // only for check !
+                    alert(lat); // only for check !
+                    alert(x);   // only for check !
+                    alert(y);   // only for check !
+
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+
                 });
-                $.post("@Url.Action("GetLon")").done(function (newLon) {
-                    lon = newLon;
-                });
-                y = ((lat + 90) * (window.innerHeight / 180)) *1.1;
-                x = ((lon + 180) * (window.innerWidth / 360)) *1.1;
-                ctx.lineTo(x, y);
-                ctx.stroke();
-            }
-           
-            setInterval(TimerHandler, IntervalTime);
+            });
+
+            setInterval(myTimer, IntervalTime);
+
         </script>
 
     </div>

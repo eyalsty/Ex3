@@ -7,7 +7,7 @@
     /* the path for the image.*/
     background-image: url("../../fonts/map.png");
     height: 100%;
-    /* for the image be at the correct position. */
+    /* for the image to be at the correct position. */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

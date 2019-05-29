@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
 
 namespace Ex3.Controllers
 {
@@ -46,25 +48,41 @@ namespace Ex3.Controllers
             return View();
         }
 
-        [HttpPost]
-        public double GetLat()
-        {
-            Client client = InfoModel.Instance.client;
-            return client.Get("/position/latitude-deg");
-        }
-
-        [HttpPost]
-        public double GetLon()
-        {
-            Client client = InfoModel.Instance.client;
-            return client.Get("/position/longitude-deg");
-        }
-
         [HttpGet]
         public ActionResult SaveDisplay(string ip, int port)
         {
 
             return View();
+        }
+
+        [HttpPost]
+        public string GetCoordinate()
+        {
+            Client client = InfoModel.Instance.client;
+
+            Coordinate coordinate = new Coordinate();
+            coordinate.Lon = client.Get("/position/longitude-deg");
+            coordinate.Lat = client.Get("/position/latitude-deg");
+
+            return ToXml(coordinate);
+        }
+
+        private string ToXml(Coordinate coordinate)
+        {
+            StringBuilder sb = new StringBuilder();
+            XmlWriterSettings settings = new XmlWriterSettings();
+            XmlWriter writer = XmlWriter.Create(sb, settings);
+
+            writer.WriteStartDocument();
+            writer.WriteStartElement("Coordinate");
+
+            coordinate.ToXml(writer);
+
+            writer.WriteEndElement();
+            writer.WriteEndDocument();
+            writer.Flush();
+
+            return sb.ToString();
         }
     }
 }
