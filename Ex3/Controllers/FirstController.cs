@@ -11,7 +11,6 @@ namespace Ex3.Controllers
 {
     public class FirstController : Controller
     {
-        // GET: Products
         // NEED TO BE FIX !
         public ActionResult Index()
         {

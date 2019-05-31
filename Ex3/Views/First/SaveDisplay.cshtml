@@ -14,29 +14,14 @@
             var IntervalTime = @Session["rate"] * 1000;
             var duration = @Session["duration"] * 1000;
 
-            // sets the canvas on whole page
+            var lat = @ViewBag.Lat;
+            var lon = @ViewBag.Lon;
+
             var canvas = document.getElementById("myCanvas");
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
             var ctx = canvas.getContext("2d");
+            drawCircle(ctx, lat, lon); //draw circle in starting position
 
-            var lat = parseInt('@ViewBag.Lat');
-            var lon = parseInt('@ViewBag.Lon');
-
-            y = (lat + 90) * (window.innerHeight / 180);
-            x = (lon + 180) * (window.innerWidth / 360);
-
-            //sets circle color.
-            ctx.fillStyle = "red";
-
-            ctx.beginPath();
-            ctx.arc(x, y, 5, 0, 2 * Math.PI);
-            ctx.fill();
-            ctx.stroke();
-
-            // sets line color and width.
-            ctx.strokeStyle = "red";
-            ctx.lineWidth = 3;
+            setLine(ctx, lat, lon); // sets line color and width.
             
             myTimer = (function () {
 
