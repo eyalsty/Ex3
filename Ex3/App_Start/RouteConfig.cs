@@ -14,7 +14,11 @@ namespace Ex3
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute("displayOnce", "display/{ip}/{port}",
-            new { controller = "First", action = "DisplayOnce" });
+            new { controller = "First", action = "DisplayOnce" },
+            new { ip = @"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$" });
+
+            routes.MapRoute("loadDisplay", "display/{fname}/{rate}",
+                new { controller = "First", action = "LoadDisplay" });
 
             routes.MapRoute("autoDisplay", "display/{ip}/{port}/{rate}",
             new { controller = "First", action = "AutoDisplay" });

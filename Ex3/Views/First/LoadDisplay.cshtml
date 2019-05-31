@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "AutoDisplay";
+    ViewBag.Title = "LoadDisplay";
 }
 
 <!DOCTYPE html>
@@ -12,39 +12,30 @@
         <script>
 
             var IntervalTime = @Session["rate"] * 1000;
-
-            // sets the canvas on whole page
+            
             var canvas = document.getElementById("myCanvas");
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             var ctx = canvas.getContext("2d");
 
-            var lat = parseInt('@ViewBag.Lat');
-            var lon = parseInt('@ViewBag.Lon');
-            
-            y = (lat + 90) * (window.innerHeight / 180);
-            x = (lon + 180) * (window.innerWidth / 360);
-
-            //sets circle color.
-            ctx.fillStyle = "red";
-            
-            ctx.beginPath();
-            ctx.arc(x, y, 5, 0, 2 * Math.PI);
-            ctx.fill();
-            ctx.stroke();
-
-            // sets line color and width.
             ctx.strokeStyle = "red";
             ctx.lineWidth = 3;
             
             myTimer = (function () {
-                
-                $.post("@Url.Action("GetCoordinate")").done(function (xml) {
+
+                $.post("@Url.Action("LoadFlightData")").done(function (xml) {
 
                     var xmlDoc = $.parseXML(xml), $xml = $(xmlDoc);
                     var lon = $xml.find("Lon").text();
                     var lat = $xml.find("Lat").text();
 
+                    alert("lon = " + lon + ", lat = " + lat);   // CHECK !
+                    if (lon == '' || lat == '') {
+                        alert("Done display flight path !");
+                        clearInterval(intervalID);
+                        return;
+                    }
+                    
                     var x = (window.innerWidth / 360) * (parseInt(lon) + 180);
                     var y = (window.innerHeight / 180) * (parseInt(lat) + 90);
 
@@ -53,10 +44,11 @@
                 });
             });
 
-            setInterval(myTimer, IntervalTime);
+            var intervalID = setInterval(myTimer, IntervalTime);
+            
 
         </script>
-
     </div>
 </body>
 </html>
+
