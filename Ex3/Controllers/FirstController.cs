@@ -11,11 +11,8 @@ namespace Ex3.Controllers
 {
     public class FirstController : Controller
     {
-        // NEED TO BE FIX !
         public ActionResult Index()
         {
-            ViewBag.Lon = 100;
-            ViewBag.Lat = 50;
             return View();
         }
 
@@ -23,6 +20,8 @@ namespace Ex3.Controllers
         [HttpGet]
         public ActionResult DisplayOnce(string ip, int port)
         {
+            //handle client's connection
+
             InfoModel.Instance.EstablishConn(ip, port);
             this.BagCoordinate();
 
@@ -35,6 +34,7 @@ namespace Ex3.Controllers
         [HttpGet]
         public ActionResult AutoDisplay(string ip, int port, int rate)
         {
+            //handle client's connection
             InfoModel.Instance.EstablishConn(ip, port);
             this.BagCoordinate();
 
@@ -46,6 +46,7 @@ namespace Ex3.Controllers
         [HttpPost]
         public string GetCoordinate()
         {
+            //receiving current plane's coordinates
             Coordinate coordinate = InfoModel.Instance.GetCoordinate();
             return ToXml(coordinate);
         }

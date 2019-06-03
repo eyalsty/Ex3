@@ -2,9 +2,27 @@
 @{
     ViewBag.Title = "index";
 }
-HI !
 <!DOCTYPE html>
 <html>
 <body>
+    <h1 style="color:navy; font-size:50px">Welcome To Our Web Application</h1>
+    <table style="font-size:20px; color:blue; border-collapse:separate; border-spacing:1em;">
+        <tr>
+            <td>To see current plane's location type: </td>
+            <td> "display"/{ip}/{port}</td>
+        </tr>
+        <tr>
+            <td>To see real time animation of the plane's location type: </td>
+            <td> "display"/{ip}/{port}/{display_rate}</td>
+        </tr>
+        <tr>
+            <td>To record the plane's flight data type: </td>
+            <td> "save"/{ip}/{port}/{display_rate}/{record_duration}/{file_name_to_save}</td>
+        </tr>
+        <tr>
+            <td>To load previous-saved flight route type: </td>
+            <td> "display"/{file_name_to_load}/{display_rate}</td>
+        </tr>
+    </table>
 </body>
 </html>
